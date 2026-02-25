@@ -47,21 +47,25 @@ def check_budget_limit(transactions: list[Transaction], limit: Decimal) -> bool:
 
 #TODO (Hint: This function is called in calculate_financial_summary, check its logic, what if we have no expenses? What if total_expenses is zero?)
 def check_financial_health(transactions: list[Transaction]) -> str:
-    """Evaluates the financial health based on income and expenses.
-
-    Args:
-        transactions (list[Transaction]): List of financial transactions.
-
-    Returns:
-        str: A message indicating financial health status, like: "Saving well", or "Overspending".
-
-    """
+    """Evaluates the financial health based on income and expenses."""
     total_income = calculate_total_income(transactions)
     total_expenses = abs(calculate_total_expenses(transactions))
-    health = total_income / (total_expenses)
-    if (health >= 1):
-        return "Saving well"
-    else:
+    
+    # Handle the case when there are no expenses
+    if total_expenses == 0:
+        if total_income > 0:
+            return "No expenses recorded"
+        else:
+            return "Overspending"
+    
+    try:
+        health = total_income / total_expenses
+        if health >= 1:
+            return "Saving well"
+        else:
+            return "Overspending"
+    except (ZeroDivisionError, Exception):
+        # Fallback for any other division errors
         return "Overspending"
 
 #TODO Examine this function, it seems to be causing an error in app.py? (Hint: This function uses other functions defined above, it might be related to them)
