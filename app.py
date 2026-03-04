@@ -8,7 +8,7 @@ from helpers.analysis import (
     generate_financial_charts,
     generate_text_report,
     get_category_names,
-    get_transactions_by_category
+    get_transactions_by_category,
 )
 
 app = Flask(__name__)
@@ -29,7 +29,7 @@ def main():
 @app.route("/api/financial_summary", methods=["GET"])
 def api_financial_summary():
     """API endpoint to get the student-facing text report."""
-    return ""
+    return jsonify(generate_text_report())
 
 
 # TODO Complete the API endpoint below to return transactions for a specific category
@@ -38,9 +38,11 @@ def api_financial_summary():
 def api_transactions_by_category():
     """API endpoint to get transactions filtered by category."""
     category = request.args.get("category")
+    print(category)
     if not category:
         return jsonify({"error": "Category query parameter is required"}), 400
-    return ""
+    transactions = get_transactions_by_category(category)
+    return transactions
 
 
 @app.route("/api/category", methods=["GET"])

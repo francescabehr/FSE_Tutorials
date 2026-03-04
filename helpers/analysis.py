@@ -163,11 +163,21 @@ def get_category_names():
         session.close()
 
 
-#TODO Complete the function below, use the helper function provided to convert to dicts otherwise tests will fail.
+# TODO Complete the function below, use the helper function provided to convert to dicts otherwise tests will fail.
 def get_transactions_by_category(category_name: str):
-    pass
+    session = get_session()
+    try:
+        stmt = select(Category).where(Category.name == category_name)
+        category = session.execute(stmt).scalars().first()
+        if not category or not category.transactions:
+            logger.info(f"No transactions found for category '{category_name}'.")
+            return []
+        return convert_transactions_to_dict(category.transactions)
+    finally:        
+        session.close()
 
-#NOTE: I have added this helper function to convert Transaction objects to dictionaries for JSON serialization, for use in the function above.
+
+# NOTE: I have added this helper function to convert Transaction objects to dictionaries for JSON serialization, for use in the function above.
 def convert_transactions_to_dict(transactions):
     """Helper function to convert Transaction objects to dictionaries for JSON serialization."""
     return [
