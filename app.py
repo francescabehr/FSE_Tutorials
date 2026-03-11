@@ -77,10 +77,7 @@ def add_transaction():
         logger.error(f"Error adding transaction: {e}")
         flash(f"Error adding transaction: {str(e)}", "error")
     if transaction_id is not None:
-      # log_transaction_audit_task.delay(transaction_id) #type: ignore
-      pass
-
-    
+      log_transaction_audit_task.delay(transaction_id) #type: ignore
 
     return redirect(url_for("dashboard"))
 
@@ -156,4 +153,4 @@ def chart_status(task_id):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=Config.get_debug_mode())
+    app.run(host="0.0.0.0", port=5001, debug=Config.get_debug_mode())
