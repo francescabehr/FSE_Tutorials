@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Financial Dashboard</title>
+    <title>Wizard's Financial Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}" />
 </head>
 
@@ -12,9 +12,9 @@
     <div class="container">
         <header class="hero">
             <div class="hero__content">
-                <span class="badge">Live Dashboard</span>
-                <h1>Financial Management System</h1>
-                <p class="subtitle">Track, analyze, and optimize your financial health</p>
+                <span class="badge">Live Spellbook</span>
+                <h1>Magical Wealth Management</h1>
+                <p class="subtitle">Manage your gold and potions with wizardry</p>
             </div>
         </header>
 
@@ -35,53 +35,53 @@
         <!-- Financial Summary Cards -->
         <section class="metrics">
             <article class="metric-card">
-                <div class="metric-card__icon">💰</div>
+                <div class="metric-card__icon">🪄</div>
                 <div class="metric-card__content">
-                    <p class="metric-card__label">Daily Burn Rate</p>
+                    <p class="metric-card__label">Daily Magic Burn</p>
                     <p class="metric-card__value">{{ report['Daily Burn Rate'] }}</p>
                 </div>
             </article>
             <article class="metric-card">
-                <div class="metric-card__icon">🎉</div>
+                <div class="metric-card__icon">✨</div>
                 <div class="metric-card__content">
-                    <p class="metric-card__label">Entertainment %</p>
+                    <p class="metric-card__label">Fun Spells %</p>
                     <p class="metric-card__value">{{ report['Entertainment %'] }}</p>
                 </div>
             </article>
             <article class="metric-card">
-                <div class="metric-card__icon">🏠</div>
+                <div class="metric-card__icon">🏰</div>
                 <div class="metric-card__content">
-                    <p class="metric-card__label">Essential Coverage</p>
+                    <p class="metric-card__label">Castle Protection</p>
                     <p class="metric-card__value">{{ report['Essential Coverage'] }}</p>
                 </div>
             </article>
             <article class="metric-card">
-                <div class="metric-card__icon">💎</div>
+                <div class="metric-card__icon">💍</div>
                 <div class="metric-card__content">
-                    <p class="metric-card__label">Net Savings</p>
+                    <p class="metric-card__label">Treasure Chest</p>
                     <p class="metric-card__value">{{ report['Net Savings'] }}</p>
                 </div>
             </article>
 
 
             <article class="metric-card">
-                <div class="metric-card__icon">💸</div>
+                <div class="metric-card__icon">🪙</div>
                 <div class="metric-card__content">
-                    <p class="metric-card__label">Largest Expense</p>
+                    <p class="metric-card__label">Biggest Potion</p>
                     <p class="metric-card__value">
                         {% if largest_expense %}
                         R {{ "%.2f"|format(largest_expense.amount|abs) }} - {{ largest_expense.description }}
                         {% else %}
-                        No expenses yet
+                        No potions yet
                         {% endif %}
                     </p>
                 </div>
             </article>
 
             <article class="metric-card">
-                <div class="metric-card__icon">📊</div>
+                <div class="metric-card__icon">📜</div>
                 <div class="metric-card__content">
-                    <p class="metric-card__label">Average Transaction</p>
+                    <p class="metric-card__label">Average Charm</p>
                     <p class="metric-card__value">
                         R {{ "%.2f"|format(avg_transaction) }}
                     </p>
@@ -91,17 +91,17 @@
 
         <!-- Charts Section -->
         <section class="charts-section">
-            <h2 class="section-title">Spending Analysis</h2>
+            <h2 class="section-title">Expense Enchantments</h2>
             <div class="charts-grid">
                 {% if chart_paths.expenses %}
                 <div class="chart-container">
-                    <h3>Expenses Breakdown</h3>
+                    <h3>Spell Expenses Breakdown</h3>
                     <img src="{{ chart_paths.expenses }}" alt="Expenses Chart" class="chart-image" />
                 </div>
                 {% endif %}
                 {% if chart_paths.income %}
                 <div class="chart-container">
-                    <h3>Income Sources</h3>
+                    <h3>Gold Sources</h3>
                     <img src="{{ chart_paths.income }}" alt="Income Chart" class="chart-image" />
                 </div>
                 {% endif %}
@@ -110,7 +110,7 @@
 
         <!-- Add Transaction Form -->
         <section class="form-section">
-            <h2 class="section-title">Add New Transaction</h2>
+            <h2 class="section-title">Cast New Transaction Spell</h2>
             <form method="POST" action="{{ url_for('add_transaction') }}" class="transaction-form">
                 <div class="form-grid">
                     <div class="form-group">
@@ -119,11 +119,11 @@
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <input type="text" id="description" name="description" placeholder="e.g., Grocery shopping"
+                        <input type="text" id="description" name="description" placeholder="e.g., Wand polishing"
                             required />
                     </div>
                     <div class="form-group">
-                        <label for="amount">Amount (R)</label>
+                        <label for="amount">Amount (G)</label>
                         <input type="number" id="amount" name="amount" step="0.01" placeholder="0.00" required />
                     </div>
                     <script>
@@ -148,30 +148,30 @@
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="btn-submit">Add Transaction</button>
+                <button type="submit" class="btn-submit">Cast Spell</button>
             </form>
         </section>
 
         <!-- Add Category Form -->
         <section class="form-section">
-            <h2 class="section-title">Add New Category</h2>
+            <h2 class="section-title">Summon New Category</h2>
             <form method="POST" action="{{ url_for('add_category') }}" class="transaction-form">
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="category_name">Category Name</label>
-                        <input type="text" id="category_name" name="category_name" placeholder="e.g., Travel, Subscriptions" required />
+                        <input type="text" id="category_name" name="category_name" placeholder="e.g., Broomsticks, Potions" required />
                     </div>
                 </div>
-                <button type="submit" class="btn-submit">Add Category</button>
+                <button type="submit" class="btn-submit">Summon</button>
             </form>
         </section>
 
         <!-- Transactions Table -->
         <section class="table-section">
             <div class="table-header">
-                <h2 class="section-title">Recent Transactions</h2>
+                <h2 class="section-title">Recent Magical Deeds</h2>
                 <div class="table-actions">
-                    <input type="text" id="searchInput" placeholder="Search transactions..." class="search-input" />
+                    <input type="text" id="searchInput" placeholder="Search spells..." class="search-input" />
                     <select id="categoryFilter" class="filter-select">
                         <option value="">All Categories</option>
                         {% for category in category_names %}
@@ -185,9 +185,9 @@
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Description</th>
-                            <th>Category</th>
-                            <th>Amount</th>
+                            <th>Spell</th>
+                            <th>School</th>
+                            <th>Gold</th>
                         </tr>
                     </thead>
                     <tbody id="transactionsBody">
